@@ -8,7 +8,7 @@ main() async {
 }
 
 class AsyncWorker {
-  var _completer = Completer<String>();
+  final _completer = Completer<String>();
 
   Future<String> start() {
     _startSmth();

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+const String surfLogoUrl =
+    'https://raw.githubusercontent.com/Wolfram-180/apps_resources/main/surf_places/surflogo.png';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +42,24 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(),
+      body: Center(
+        child: FutureBuilder(
+          future: http.get(
+            Uri.parse(surfLogoUrl),
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Got error!');
+            }
+
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {}
+            }
+
+            return Container();
+          },
+        ),
+      ),
     );
   }
 }

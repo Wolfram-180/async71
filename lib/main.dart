@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: _title),
@@ -49,14 +49,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text('Got error!');
+              return const Text('Got error!');
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {}
+              if (snapshot.hasData) {
+                return Image.memory(snapshot.data!.bodyBytes);
+              } else {
+                return const Text('No data');
+              }
             }
 
-            return Container();
+            return const CircularProgressIndicator();
           },
         ),
       ),
